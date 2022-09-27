@@ -1,5 +1,11 @@
 <h2>Listado de Noticias</h2>
+<form (submit)="buscar()">
+  <input type="text" name="query" placeholder="Buscar..." [(ngModel)]="search">
+  <button [disabled]="!search">Buscar</button>
+</form>
+
 <p *ngIf="cargando">Cargando...</p>
+<h2>Resultados de {{search2 | myUpperCase}}</h2>
 <ul>
   <li *ngFor="let elemento of noticias">
     <a href="{{elemento.url}}">{{elemento.title}}</a>
