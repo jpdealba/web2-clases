@@ -1,3 +1,31 @@
-h2 {
-    color: red;
+header {
+  height: 80px;
+  width: 100%;
+  background-color: #c2185b;
+  color: white;
+  line-height: 80px;
+  padding: 0 20px;
+
+  h2 {
+    margin: 0;
+    display: inline-block;
+  }
+
+  ul {
+
+    list-style: none;
+    float: right;
+    margin: 0 50px;
+
+    li {
+      display: inline-block;
+      margin-left: 10px;
+
+      a {
+        color: white;
+      }
+    }
+
+    ;
+  }
 }

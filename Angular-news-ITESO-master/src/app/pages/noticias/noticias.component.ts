@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Noticia } from 'src/app/shared/interfaces/noticia';
 import { NoticiaService } from 'src/app/shared/services/noticia.service';
 
 @Component({
@@ -10,34 +11,50 @@ export class NoticiasComponent implements OnInit {
 
   noticias: any = []
   cargando: boolean = false
-  search: string = ""
-  search2: string = ""
+  search: string = ''
+  lastSearch: string = ''
+  current: any ={};
+  favoritos: number = 0;
+
   constructor(private servicioDeNoticias: NoticiaService) {}
 
   ngOnInit(): void {
 
   }
 
-  setSearch(e: any): void {
-    this.search = e.target.value
-    if (e.key == "Enter"){
+  buscar(): void {
+    this.cargando = true;
+    this.servicioDeNoticias.getNoticias(this.search).subscribe({
+      next: (response) => {
+        this.lastSearch = this.search;
+        this.noticias = response.articles;
+        this.cargando = false;
+        this.search = '';
+      },
+      error: (err) => {
+        console.log('Error: ', err);
+      }
+    });
+  }
+
+  selectNoticia(noticia: Noticia) {
+    this.current = noticia;
+    this.servicioDeNoticias.setCurrentNoticia(noticia)
+  }
+
+  clearCurrent(){
+    this.current = {};
+  }
+
+  setSearch(e: any){
+    this.search = e.target.value;
+    if(e.key == 'Enter'){
       this.buscar()
     }
   }
 
-  buscar(): void {
-    this.cargando = true
-    this.servicioDeNoticias.getNoticias(this.search).subscribe({
-      next: (res) => {
-        this.search2 = this.search
-        this.noticias = res.articles
-        this.cargando = false
-        this.search = ""
-      },
-      error: (err: any) => {
-        console.log("error")
-      }
-    })
+  contarFavoritos(favorito: boolean) {
+    this.servicioDeNoticias.countfavoritos(favorito)
   }
 
 }
