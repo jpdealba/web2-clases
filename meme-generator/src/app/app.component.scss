@@ -1,0 +1,25 @@
+#meme {
+  width: 600px;
+  height: 400px;
+  background-color: black;
+  background-repeat: none;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  >div {
+    color: white;
+    text-align: center;
+    position: absolute;
+    left: 5px;
+    right: 5px;
+
+      &#upper {
+          top: 5px
+        }
+
+        &#lower {
+          bottom: 5px
+        }
+  }
+}
+
